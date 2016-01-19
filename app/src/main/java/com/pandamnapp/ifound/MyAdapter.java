@@ -41,7 +41,6 @@ public class MyAdapter extends ArrayAdapter<ITuneSearchObject> {
 
 
                 ITuneSearchObject object = obj.get(position);
-                artworkUrl30.setImageBitmap(object.artworkUrl30);
                 trackName.setText(object.trackName);
                 kind.setText(object.kind);
                 shortDesc.setText(object.shortDescription);

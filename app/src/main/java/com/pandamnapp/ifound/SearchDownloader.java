@@ -1,5 +1,6 @@
 package com.pandamnapp.ifound;
 
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -26,12 +27,16 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
     private HomeScreen homeScreen;
     private String RESULTS = "results";
     private String TRACK_NAME = "trackName";
-    private String ART_WORK = "artworkUrl30";
+    private String ART_WORK30 = "artworkUrl30";
+    private String ART_WORK100 = "artworkUrl100";
     private String SHORT_DESC = "shortDescription";
     private String LONG_DESC = "longDescription";
     private String KIND = "kind";
+    private String ARTIST = "artistName";
+    private String Genre = "primaryGenreName";
     private String TRACK_PRICE = "trackPrice";
     private MainActivity mainActivity;
+    private ProgressDialog pDialog;
 
 
     public SearchDownloader(HomeScreen homeScreen) {
@@ -43,8 +48,20 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
     }
 
     @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        pDialog = new ProgressDialog(homeScreen);
+        pDialog.setMessage("Loading");
+        pDialog.setIndeterminate(false);
+        pDialog.setCancelable(true);
+        pDialog.show();
+
+    }
+
+    @Override
     protected void onPostExecute(Void avoid) {
         super.onPostExecute(avoid);
+        pDialog.dismiss();
         SearchAdapter adapter = new SearchAdapter(homeScreen, searchObjectsArrayList);
         homeScreen.mListView.setAdapter(adapter);
     }
@@ -55,12 +72,14 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
         HttpURLConnection mainconn;
         InputStream maininputStream;
         String trackName = null;
-        String artworkUrl;
+        String artist = null;
+        String artworkUrl30 = null;
+        String artworkUrl100 = null;
         String shortDes = null;
         String longDes = null;
+        String genre = null;
         String kind = null;
         String trackPrice = null;
-        Bitmap bmp = null;
 
         try {
             apiUrl = new URL(homeScreen.URL_STRING);
@@ -82,15 +101,17 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
                 if (singleObject.has(KIND)) {
                     kind = singleObject.getString(KIND);
                 }
+                if (singleObject.has(ARTIST)){
+                    artist = singleObject.getString(ARTIST);
+                }
                 if (singleObject.has(TRACK_NAME)) {
                     trackName = singleObject.getString(TRACK_NAME);
                 }
-                if (singleObject.has(ART_WORK)) {
-                    artworkUrl = singleObject.getString(ART_WORK);
-                    URL downloadURL = new URL(artworkUrl);
-                    HttpURLConnection conn = (HttpURLConnection) downloadURL.openConnection();
-                    InputStream inputStream = conn.getInputStream();
-                    bmp = BitmapFactory.decodeStream(inputStream);
+                if (singleObject.has(ART_WORK30)) {
+                    artworkUrl30 = singleObject.getString(ART_WORK30);
+                }
+                if (singleObject.has(ART_WORK100)){
+                    artworkUrl100 = singleObject.getString(ART_WORK100);
                 }
                 if (singleObject.has(SHORT_DESC)) {
                     shortDes = singleObject.getString(SHORT_DESC);
@@ -101,7 +122,10 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
                 if (singleObject.has(TRACK_PRICE)) {
                     trackPrice = singleObject.getString(TRACK_PRICE);
                 }
-                ITuneSearchObject iTuneSearchObject = new ITuneSearchObject(trackName, bmp, kind, shortDes, longDes, trackPrice);
+                if (singleObject.has(Genre)){
+                    genre = singleObject.getString(Genre);
+                }
+                ITuneSearchObject iTuneSearchObject = new ITuneSearchObject(trackName, artworkUrl30, artworkUrl100, shortDes, longDes,kind, trackPrice,artist,genre);
                 searchObjectsArrayList.add(iTuneSearchObject);
             }
 

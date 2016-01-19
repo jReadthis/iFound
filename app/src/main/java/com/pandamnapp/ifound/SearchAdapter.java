@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 /**
@@ -39,7 +39,12 @@ public class SearchAdapter extends ArrayAdapter<ITuneSearchObject> {
 
         ITuneSearchObject object = obj.get(position);
         trackName.setText(object.trackName);
-        artwork.setImageBitmap(object.artworkUrl30);
+
+        Picasso.with(getContext())
+                .load(object.artworkUrl30)
+                .resize(120,130)
+                .into(artwork);
+
         kind.setText(object.kind);
         shortDesc.setText(object.shortDescription);
         trackPrice.setText(object.trackPrice);

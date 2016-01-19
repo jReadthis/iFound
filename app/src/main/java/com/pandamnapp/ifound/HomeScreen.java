@@ -1,6 +1,7 @@
 package com.pandamnapp.ifound;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -73,6 +74,13 @@ public class HomeScreen extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 entity = null;
+            }
+        });
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getBaseContext(), position,Toast.LENGTH_LONG).show();
             }
         });
     }
