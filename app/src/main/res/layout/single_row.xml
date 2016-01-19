@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
     android:layout_width="match_parent" android:layout_height="wrap_content"
     android:orientation="vertical"
     android:weightSum="0">
@@ -52,12 +53,54 @@
                     android:text="trackPrice"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
+=======
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:minHeight="?android:attr/listPreferredItemHeightLarge"
+    android:orientation="horizontal"
+    android:padding="16dp">
 
+    <ImageView
+        android:id="@+id/artWork"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="4dp"
+        android:src="@mipmap/ic_launcher" />
 
-        </LinearLayout>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:orientation="vertical"
+        android:paddingLeft="8dp">
+
+        <TextView
+            android:id="@+id/trackName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="@string/trackName" />
+
+        <TextView
+            android:id="@+id/kind"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="@string/kind" />
+
+        <TextView
+            android:id="@+id/shortDes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="@string/shortDescription" />
+>>>>>>> 03986071f0148ad8768573cb64f4b0d2218fb640
+
 
     </LinearLayout>
 
+<<<<<<< HEAD
     <TextView
         android:id="@+id/shortDes"
         android:layout_width="wrap_content"
@@ -65,6 +108,20 @@
         android:layout_marginTop="10dp"
         android:layout_weight="0"
         android:text="@string/shortDescription" />
+=======
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+>>>>>>> 03986071f0148ad8768573cb64f4b0d2218fb640
 
+        <TextView
+            android:id="@+id/trackPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="10dp"
+            android:text="trackPrice" />
+    </LinearLayout>
 
 </LinearLayout>

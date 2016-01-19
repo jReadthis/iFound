@@ -24,6 +24,7 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
 
     ArrayList<ITuneSearchObject> searchObjectsArrayList =  new ArrayList<>();
     private HomeScreen homeScreen;
+<<<<<<< HEAD
     private String RESULTS = "results";
     private String TRACK_NAME = "trackName";
     private String ART_WORK = "artworkUrl30";
@@ -31,16 +32,23 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
     private String LONG_DESC = "longDescription";
     private String KIND = "kind";
     private String TRACK_PRICE = "trackPrice";
+=======
+    private MainActivity mainActivity;
+>>>>>>> 03986071f0148ad8768573cb64f4b0d2218fb640
 
 
     public SearchDownloader(HomeScreen homeScreen){
         this.homeScreen = homeScreen;
     }
+
+    public SearchDownloader(MainActivity mainActivity){
+        this.mainActivity = mainActivity;
+    }
     @Override
     protected void onPostExecute(Void avoid){
         super.onPostExecute(avoid);
         SearchAdapter adapter = new SearchAdapter(homeScreen, searchObjectsArrayList);
-        homeScreen.listView.setAdapter(adapter);
+        homeScreen.mListView.setAdapter(adapter);
     }
 
     @Override
@@ -75,6 +83,7 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
 
             for(int i = 0; i < dataArray.length(); i++){
                 JSONObject singleObject = dataArray.getJSONObject(i);
+<<<<<<< HEAD
                 if(singleObject.has(KIND)){
                     kind = singleObject.getString(KIND);
                 }
@@ -83,12 +92,22 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
                 }
                 if (singleObject.has(ART_WORK)) {
                     artworkUrl = singleObject.getString(ART_WORK);
+=======
+
+                //JSONObject trackObject = singleObject.getJSONObject("trackName");
+                //if (singleObject.has("trackName")) {
+                    trackName = singleObject.getString("trackName");
+                //}
+                //if(singleObject.has("artworkUrl")) {
+                    artworkUrl = singleObject.getString("artworkUrl30");
+>>>>>>> 03986071f0148ad8768573cb64f4b0d2218fb640
                     URL downloadURL = new URL(artworkUrl);
                     HttpURLConnection conn = (HttpURLConnection) downloadURL.openConnection();
                     InputStream inputStream = conn.getInputStream();
                     bmp = BitmapFactory.decodeStream(inputStream);
-                }
+                //}
 
+<<<<<<< HEAD
                 if (singleObject.has(SHORT_DESC)){
                     shortDes = singleObject.getString(SHORT_DESC);
                 }
@@ -99,6 +118,19 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
                     trackPrice = singleObject.getString(TRACK_PRICE);
                 }
                 ITuneSearchObject iTuneSearchObject = new ITuneSearchObject(trackName,bmp,kind,shortDes,longDes,trackPrice);
+=======
+                //shortDes = singleObject.getString("shortDescription");
+                //if (singleObject.has("kind")) {
+                    kind = singleObject.getString("kind");
+                //}
+                //longDes = singleObject.getString("longDescription");
+                //if (singleObject.has("trackPrice")) {
+                    trackPrice = singleObject.getString("trackPrice");
+                //}
+                //ITuneSearchObject iTuneSearchObject = new ITuneSearchObject(trackName,bmp,
+                        //shortDes, longDes, kind, trackPrice);
+                ITuneSearchObject iTuneSearchObject = new ITuneSearchObject(trackName,bmp, kind, trackPrice);
+>>>>>>> 03986071f0148ad8768573cb64f4b0d2218fb640
                 searchObjectsArrayList.add(iTuneSearchObject);
             }
 
