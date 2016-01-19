@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">"iFound "</string>
+    <string name="action_settings">Settings</string>
+    <string name="spinner_title">Entities</string>
+    <string name="search">Search</string>
+    <string name="Enter">Enter</string>
+    <string name="trackName">Track Name</string>
+    <string name="kind">kind</string>
+    <string name="shortDescription">Short Description</string>
+    <string name="longDescription">long description</string>
+
+    <string name="url1"  formatted="false" >https://itunes.apple.com/search?term=%s</string>
+    <string name="url2"  formatted="false" >https://itunes.apple.com/search?term=%s&amp;entity=%s</string>
+
+
+    <string-array name="Entities">
+        <item>Select</item>
+        <item>album</item>
+        <item>allArtist</item>
+        <item>allTrack</item>
+        <item>audiobook</item>
+        <item>audiobookAuthor</item>
+        <item>ebook</item>
+        <item>iPadSoftware</item>
+        <item>macSoftware</item>
+        <item>mix</item>
+        <item>movie</item>
+        <item>movieArtist</item>
+        <item>musicArtist</item>
+        <item>musicTrack</item>
+        <item>musicVideo</item>
+        <item>shortFilm</item>
+        <item>shortFilmArtist</item>
+        <item>software</item>
+        <item>song</item>
+        <item>tvEpisode</item>
+        <item>tvSeason</item>
+        <item>podcastAuthor</item>
+        <item>podcast</item>
+    </string-array>
+</resources>
