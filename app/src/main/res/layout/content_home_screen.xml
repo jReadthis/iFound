@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_marginTop="45dp"
+    android:orientation="vertical"
     tools:context="com.pandamnapp.ifound.HomeScreen"
     tools:showIn="@layout/activity_home_screen">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,31 +15,31 @@
 
 
         <Spinner
+            android:id="@+id/spinner"
             android:layout_width="95dp"
             android:layout_height="match_parent"
-            android:id="@+id/spinner"
             android:prompt="@string/spinner_title"
             android:spinnerMode="dropdown" />
 
         <EditText
-        android:layout_width="189dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/search"
-        android:hint="@string/search" />
+            android:id="@+id/search"
+            android:layout_width="189dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/search" />
 
         <Button
-        android:layout_width="81dp"
-        android:layout_height="wrap_content"
-        android:text="@string/Enter"
-        android:id="@+id/searchBtn"
-        android:onClick="addURL" />
-</LinearLayout>
+            android:id="@+id/searchBtn"
+            android:layout_width="81dp"
+            android:layout_height="wrap_content"
+            android:onClick="addURL"
+            android:text="@string/Enter" />
+    </LinearLayout>
 
     <ListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listView"
-        android:visibility="gone"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone" />
 
 </LinearLayout>

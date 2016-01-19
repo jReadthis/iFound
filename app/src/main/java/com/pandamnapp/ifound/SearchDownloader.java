@@ -1,10 +1,8 @@
 package com.pandamnapp.ifound;
 
-import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,8 +22,8 @@ import java.util.ArrayList;
  */
 public class SearchDownloader extends AsyncTask<Void, Void, Void> {
 
-    private HomeScreen homeScreen;
     ArrayList<ITuneSearchObject> searchObjectsArrayList =  new ArrayList<>();
+    private HomeScreen homeScreen;
 
 
     public SearchDownloader(HomeScreen homeScreen){
@@ -35,7 +33,7 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void avoid){
         super.onPostExecute(avoid);
         SearchAdapter adapter = new SearchAdapter(homeScreen, searchObjectsArrayList);
-        homeScreen.listView.setAdapter(adapter);
+        homeScreen.mListView.setAdapter(adapter);
     }
 
     @Override
@@ -72,25 +70,25 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
                 JSONObject singleObject = dataArray.getJSONObject(i);
 
                 //JSONObject trackObject = singleObject.getJSONObject("trackName");
-                if (singleObject.has("trackName")) {
+                //if (singleObject.has("trackName")) {
                     trackName = singleObject.getString("trackName");
-                }
-                if(singleObject.has("artworkUrl")) {
+                //}
+                //if(singleObject.has("artworkUrl")) {
                     artworkUrl = singleObject.getString("artworkUrl30");
                     URL downloadURL = new URL(artworkUrl);
                     HttpURLConnection conn = (HttpURLConnection) downloadURL.openConnection();
                     InputStream inputStream = conn.getInputStream();
                     bmp = BitmapFactory.decodeStream(inputStream);
-                }
+                //}
 
                 //shortDes = singleObject.getString("shortDescription");
-                if (singleObject.has("kind")) {
+                //if (singleObject.has("kind")) {
                     kind = singleObject.getString("kind");
-                }
+                //}
                 //longDes = singleObject.getString("longDescription");
-                if (singleObject.has("trackPrice")) {
+                //if (singleObject.has("trackPrice")) {
                     trackPrice = singleObject.getString("trackPrice");
-                }
+                //}
                 //ITuneSearchObject iTuneSearchObject = new ITuneSearchObject(trackName,bmp,
                         //shortDes, longDes, kind, trackPrice);
                 ITuneSearchObject iTuneSearchObject = new ITuneSearchObject(trackName,bmp, kind, trackPrice);
