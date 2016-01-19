@@ -1,10 +1,8 @@
 package com.pandamnapp.ifound;
 
-import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,8 +22,8 @@ import java.util.ArrayList;
  */
 public class SearchDownloader extends AsyncTask<Void, Void, Void> {
 
-    private HomeScreen homeScreen;
     ArrayList<ITuneSearchObject> searchObjectsArrayList =  new ArrayList<>();
+    private HomeScreen homeScreen;
 
 
     public SearchDownloader(HomeScreen homeScreen){
@@ -35,7 +33,7 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void avoid){
         super.onPostExecute(avoid);
         SearchAdapter adapter = new SearchAdapter(homeScreen, searchObjectsArrayList);
-        homeScreen.listView.setAdapter(adapter);
+        homeScreen.mListView.setAdapter(adapter);
     }
 
     @Override
