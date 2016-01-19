@@ -14,7 +14,7 @@ public class ITuneSearchObject {
     String trackPrice;
 
     ITuneSearchObject(String trackName, Bitmap artworkUrl30,
-                      String shortDescription, String longDescription, String kind, String trackPrice) {
+                      String shortDescription, String longDescription) {
         this.trackName = trackName;
         this.artworkUrl30 = artworkUrl30;
         this.shortDescription = shortDescription;

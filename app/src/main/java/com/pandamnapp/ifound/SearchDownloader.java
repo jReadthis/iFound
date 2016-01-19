@@ -3,6 +3,7 @@ package com.pandamnapp.ifound;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,10 +38,6 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
         this.homeScreen = homeScreen;
     }
 
-    public SearchDownloader(MainActivity mainActivity){
-        this.mainActivity = mainActivity;
-    }
-
     @Override
     protected void onPostExecute(Void avoid){
         super.onPostExecute(avoid);
@@ -63,7 +60,7 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
         Bitmap bmp = null;
 
         try{
-            apiUrl = new URL(homeScreen.URL_STRING);
+            apiUrl = new URL(HomeScreen.URL_STRING);
 
             mainconn = (HttpURLConnection) apiUrl.openConnection();
             maininputStream = mainconn.getInputStream();
