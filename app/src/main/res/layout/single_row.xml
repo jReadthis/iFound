@@ -1,72 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:weightSum="1">
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/artWork"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:padding="4dp"
+        android:src="@mipmap/ic_launcher" />
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:orientation="vertical"
+        android:paddingLeft="8dp">
 
-        <ImageView
-            android:id="@+id/artWork"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/trackName"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher" />
+            android:layout_gravity="left"
+            android:text="@string/trackName" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingLeft="8dp">
+        <TextView
+            android:id="@+id/kind"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="@string/kind" />
 
-            <TextView
-                android:id="@+id/trackName"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/trackName"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+        <TextView
+            android:id="@+id/shortDes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="@string/shortDescription" />
 
-            <TextView
-                android:id="@+id/kind"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/kind"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/shortDes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.34"
-                android:text="@string/shortDescription" />
-
-            <TextView
-                android:id="@+id/trackPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="10dp"
-                android:text="trackPrice"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-
-        </LinearLayout>
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/longDesc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.54"
-        android:text="@string/longDescription"
-        android:visibility="gone" />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
+        <TextView
+            android:id="@+id/trackPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="10dp"
+            android:text="trackPrice" />
+    </LinearLayout>
 
 </LinearLayout>

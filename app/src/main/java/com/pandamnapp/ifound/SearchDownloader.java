@@ -70,25 +70,25 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
                 JSONObject singleObject = dataArray.getJSONObject(i);
 
                 //JSONObject trackObject = singleObject.getJSONObject("trackName");
-                if (singleObject.has("trackName")) {
+                //if (singleObject.has("trackName")) {
                     trackName = singleObject.getString("trackName");
-                }
-                if(singleObject.has("artworkUrl")) {
+                //}
+                //if(singleObject.has("artworkUrl")) {
                     artworkUrl = singleObject.getString("artworkUrl30");
                     URL downloadURL = new URL(artworkUrl);
                     HttpURLConnection conn = (HttpURLConnection) downloadURL.openConnection();
                     InputStream inputStream = conn.getInputStream();
                     bmp = BitmapFactory.decodeStream(inputStream);
-                }
+                //}
 
                 //shortDes = singleObject.getString("shortDescription");
-                if (singleObject.has("kind")) {
+                //if (singleObject.has("kind")) {
                     kind = singleObject.getString("kind");
-                }
+                //}
                 //longDes = singleObject.getString("longDescription");
-                if (singleObject.has("trackPrice")) {
+                //if (singleObject.has("trackPrice")) {
                     trackPrice = singleObject.getString("trackPrice");
-                }
+                //}
                 //ITuneSearchObject iTuneSearchObject = new ITuneSearchObject(trackName,bmp,
                         //shortDes, longDes, kind, trackPrice);
                 ITuneSearchObject iTuneSearchObject = new ITuneSearchObject(trackName,bmp, kind, trackPrice);
