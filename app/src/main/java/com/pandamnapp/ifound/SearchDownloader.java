@@ -24,6 +24,13 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
 
     ArrayList<ITuneSearchObject> searchObjectsArrayList =  new ArrayList<>();
     private HomeScreen homeScreen;
+    private String RESULTS = "results";
+    private String TRACK_NAME = "trackName";
+    private String ART_WORK = "artworkUrl30";
+    private String SHORT_DESC = "shortDescription";
+    private String LONG_DESC = "longDescription";
+    private String KIND = "kind";
+    private String TRACK_PRICE = "trackPrice";
 
 
     public SearchDownloader(HomeScreen homeScreen){
@@ -38,11 +45,11 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-        URL apiUrl = null;
-        HttpURLConnection mainconn = null;
-        InputStream maininputStream = null;
+        URL apiUrl;
+        HttpURLConnection mainconn;
+        InputStream maininputStream;
         String trackName = null;
-        String artworkUrl = null;
+        String artworkUrl;
         String shortDes = null;
         String longDes = null;
         String kind = null;
@@ -64,28 +71,35 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
 
             String json = sb.toString();
             JSONObject jsonObject = new JSONObject(json);
-            JSONArray dataArray = jsonObject.getJSONArray("results");
+            JSONArray dataArray = jsonObject.getJSONArray(RESULTS);
 
             for(int i = 0; i < dataArray.length(); i++){
                 JSONObject singleObject = dataArray.getJSONObject(i);
-
-                    trackName = singleObject.getString("trackName");
-
-                    artworkUrl = singleObject.getString("artworkUrl30");
+                if(singleObject.has(KIND)){
+                    kind = singleObject.getString(KIND);
+                }
+                if(singleObject.has(TRACK_NAME)) {
+                    trackName = singleObject.getString(TRACK_NAME);
+                }
+                if (singleObject.has(ART_WORK)) {
+                    artworkUrl = singleObject.getString(ART_WORK);
                     URL downloadURL = new URL(artworkUrl);
                     HttpURLConnection conn = (HttpURLConnection) downloadURL.openConnection();
                     InputStream inputStream = conn.getInputStream();
                     bmp = BitmapFactory.decodeStream(inputStream);
+                }
 
-                //only used in Movies
-                //shortDes = singleObject.getString("shortDescription");
-                //longDes = singleObject.getString("longDescription");
-
-                kind = singleObject.getString("kind");
-                trackPrice = singleObject.getString("trackPrice");
-                ITuneSearchObject iTuneSearchObject = new ITuneSearchObject(trackName,bmp, kind, trackPrice);
+                if (singleObject.has(SHORT_DESC)){
+                    shortDes = singleObject.getString(SHORT_DESC);
+                }
+                if (singleObject.has(LONG_DESC)){
+                    longDes = singleObject.getString(LONG_DESC);
+                }
+                if (singleObject.has(TRACK_PRICE)){
+                    trackPrice = singleObject.getString(TRACK_PRICE);
+                }
+                ITuneSearchObject iTuneSearchObject = new ITuneSearchObject(trackName,bmp,kind,shortDes,longDes,trackPrice);
                 searchObjectsArrayList.add(iTuneSearchObject);
-
             }
 
         } catch (MalformedURLException e) {
