@@ -13,9 +13,8 @@ public class ITuneSearchObject {
     String kind;
     String trackPrice;
 
-//    ITuneSearchObject(String trackName, Bitmap artworkUrl30,
-//                      String shortDescription, String longDescription,String kind,String trackPrice )
-ITuneSearchObject(String trackName, Bitmap artworkUrl30,String kind,String trackPrice )
+   ITuneSearchObject(String trackName, Bitmap artworkUrl30,
+                      String shortDescription, String longDescription,String genre,String trackPrice )
     {
         this.trackName = trackName;
         this.artworkUrl30 = artworkUrl30;
@@ -59,7 +58,7 @@ ITuneSearchObject(String trackName, Bitmap artworkUrl30,String kind,String track
     }
 
     public String getKind() {
-        return kind;
+        return getKind();
     }
 
     public void setKind(String kind) {
