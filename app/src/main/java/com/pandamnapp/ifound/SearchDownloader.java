@@ -24,10 +24,15 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
 
     ArrayList<ITuneSearchObject> searchObjectsArrayList =  new ArrayList<>();
     private HomeScreen homeScreen;
+    private MainActivity mainActivity;
 
 
     public SearchDownloader(HomeScreen homeScreen){
         this.homeScreen = homeScreen;
+    }
+
+    public SearchDownloader(MainActivity mainActivity){
+        this.mainActivity = mainActivity;
     }
     @Override
     protected void onPostExecute(Void avoid){

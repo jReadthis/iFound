@@ -12,9 +12,8 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class HomeScreen extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
 
-    //Initializing layout views
     ListView mListView;
     String URL_STRING;
     String entity;
@@ -46,13 +45,13 @@ public class HomeScreen extends AppCompatActivity {
                 }
                 if (entity == "Select" && term != null){
                     URL_STRING = String.format(getResources().getString(R.string.url1),term);
-                    SearchDownloader searchDownloader = new SearchDownloader(HomeScreen.this);
+                    SearchDownloader searchDownloader = new SearchDownloader(MainActivity.this);
                     searchDownloader.execute();
                     mListView.setVisibility(View.VISIBLE);
                 }
                 else if (entity != "Select" && term !=null){
                     URL_STRING = String.format(getResources().getString(R.string.url2), term, entity);
-                    SearchDownloader searchDownloader = new SearchDownloader(HomeScreen.this);
+                    SearchDownloader searchDownloader = new SearchDownloader(MainActivity.this);
                     searchDownloader.execute();
                     mListView.setVisibility(View.VISIBLE);
                 }
@@ -61,7 +60,7 @@ public class HomeScreen extends AppCompatActivity {
 
         ArrayAdapter<CharSequence> entityAdapter = ArrayAdapter
                 .createFromResource(this, R.array.Entities,
-                        R.layout.spinner_item);
+                        android.R.layout.simple_spinner_item);
         mSpinner.setAdapter(entityAdapter);
 
         mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -77,4 +76,3 @@ public class HomeScreen extends AppCompatActivity {
         });
     }
 }
-
