@@ -22,9 +22,8 @@ import java.util.ArrayList;
  */
 public class SearchDownloader extends AsyncTask<Void, Void, Void> {
 
-    ArrayList<ITuneSearchObject> searchObjectsArrayList =  new ArrayList<>();
+    ArrayList<ITuneSearchObject> searchObjectsArrayList = new ArrayList<>();
     private HomeScreen homeScreen;
-<<<<<<< HEAD
     private String RESULTS = "results";
     private String TRACK_NAME = "trackName";
     private String ART_WORK = "artworkUrl30";
@@ -32,20 +31,19 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
     private String LONG_DESC = "longDescription";
     private String KIND = "kind";
     private String TRACK_PRICE = "trackPrice";
-=======
     private MainActivity mainActivity;
->>>>>>> 03986071f0148ad8768573cb64f4b0d2218fb640
 
 
-    public SearchDownloader(HomeScreen homeScreen){
+    public SearchDownloader(HomeScreen homeScreen) {
         this.homeScreen = homeScreen;
     }
 
-    public SearchDownloader(MainActivity mainActivity){
+    public SearchDownloader(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
     }
+
     @Override
-    protected void onPostExecute(Void avoid){
+    protected void onPostExecute(Void avoid) {
         super.onPostExecute(avoid);
         SearchAdapter adapter = new SearchAdapter(homeScreen, searchObjectsArrayList);
         homeScreen.mListView.setAdapter(adapter);
@@ -64,9 +62,8 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
         String trackPrice = null;
         Bitmap bmp = null;
 
-        try{
+        try {
             apiUrl = new URL(homeScreen.URL_STRING);
-
             mainconn = (HttpURLConnection) apiUrl.openConnection();
             maininputStream = mainconn.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(maininputStream));
@@ -76,72 +73,56 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
                 sb.append(line);
             }
             reader.close();
-
             String json = sb.toString();
             JSONObject jsonObject = new JSONObject(json);
             JSONArray dataArray = jsonObject.getJSONArray(RESULTS);
 
-            for(int i = 0; i < dataArray.length(); i++){
+            for (int i = 0; i < dataArray.length(); i++) {
                 JSONObject singleObject = dataArray.getJSONObject(i);
-<<<<<<< HEAD
-                if(singleObject.has(KIND)){
+                if (singleObject.has(KIND)) {
                     kind = singleObject.getString(KIND);
                 }
-                if(singleObject.has(TRACK_NAME)) {
+                if (singleObject.has(TRACK_NAME)) {
                     trackName = singleObject.getString(TRACK_NAME);
                 }
                 if (singleObject.has(ART_WORK)) {
                     artworkUrl = singleObject.getString(ART_WORK);
-=======
 
-                //JSONObject trackObject = singleObject.getJSONObject("trackName");
-                //if (singleObject.has("trackName")) {
+                    //JSONObject trackObject = singleObject.getJSONObject("trackName");
+                    //if (singleObject.has("trackName")) {
                     trackName = singleObject.getString("trackName");
-                //}
-                //if(singleObject.has("artworkUrl")) {
+                    //}
+                    //if(singleObject.has("artworkUrl")) {
                     artworkUrl = singleObject.getString("artworkUrl30");
->>>>>>> 03986071f0148ad8768573cb64f4b0d2218fb640
                     URL downloadURL = new URL(artworkUrl);
                     HttpURLConnection conn = (HttpURLConnection) downloadURL.openConnection();
                     InputStream inputStream = conn.getInputStream();
                     bmp = BitmapFactory.decodeStream(inputStream);
-                //}
+                }
 
-<<<<<<< HEAD
-                if (singleObject.has(SHORT_DESC)){
+                if (singleObject.has(SHORT_DESC)) {
                     shortDes = singleObject.getString(SHORT_DESC);
                 }
-                if (singleObject.has(LONG_DESC)){
+                if (singleObject.has(LONG_DESC)) {
                     longDes = singleObject.getString(LONG_DESC);
                 }
-                if (singleObject.has(TRACK_PRICE)){
+                if (singleObject.has(TRACK_PRICE)) {
                     trackPrice = singleObject.getString(TRACK_PRICE);
                 }
-                ITuneSearchObject iTuneSearchObject = new ITuneSearchObject(trackName,bmp,kind,shortDes,longDes,trackPrice);
-=======
-                //shortDes = singleObject.getString("shortDescription");
-                //if (singleObject.has("kind")) {
-                    kind = singleObject.getString("kind");
-                //}
-                //longDes = singleObject.getString("longDescription");
-                //if (singleObject.has("trackPrice")) {
-                    trackPrice = singleObject.getString("trackPrice");
-                //}
-                //ITuneSearchObject iTuneSearchObject = new ITuneSearchObject(trackName,bmp,
-                        //shortDes, longDes, kind, trackPrice);
-                ITuneSearchObject iTuneSearchObject = new ITuneSearchObject(trackName,bmp, kind, trackPrice);
->>>>>>> 03986071f0148ad8768573cb64f4b0d2218fb640
+                ITuneSearchObject iTuneSearchObject = new ITuneSearchObject(trackName, bmp, kind, shortDes, longDes, trackPrice);
+                shortDes = singleObject.getString("shortDescription");
                 searchObjectsArrayList.add(iTuneSearchObject);
             }
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
         return null;
     }
+
+
 }
