@@ -9,8 +9,8 @@
     <string name="shortDescription">Short Description</string>
     <string name="longDescription">long description</string>
 
-    <string name="url1" formatted="false">https://itunes.apple.com/search?term=%s</string>
-    <string name="url2" formatted="false">https://itunes.apple.com/search?term=%s&amp;entity=%s</string>
+    <string name="url1" formatted="false">https://itunes.apple.com/search?term=%s&amp;limit=10</string>
+    <string name="url2" formatted="false">https://itunes.apple.com/search?term=%s&amp;entity=%s&amp;limit=10</string>
 
 
     <string-array name="Entities">

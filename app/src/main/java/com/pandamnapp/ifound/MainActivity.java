@@ -1,6 +1,5 @@
 package com.pandamnapp.ifound;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,40 +15,37 @@ public class MainActivity extends AppCompatActivity {
 
     ListView mListView;
     String URL_STRING;
+    // tracks, albums, videos
     String entity;
+    //term: artist name, song name, book name
     String term = null;
     private Spinner mSpinner;
     private EditText mSearchParam;
-    private Button mSearchButton;
-    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mContext = this;
-
         mListView = (ListView) findViewById(R.id.listView);
         mSpinner = (Spinner) findViewById(R.id.spinner);
         mSearchParam = (EditText) findViewById(R.id.search);
-        mSearchButton = (Button) findViewById(R.id.searchBtn);
+        Button mSearchButton = (Button) findViewById(R.id.searchBtn);
         mSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 term = mSearchParam.getText().toString();
 
-                if(term == "") {
+                if (term.isEmpty()) {
                     Toast.makeText(getBaseContext(), "Please enter a search term",
                             Toast.LENGTH_LONG).show();
                 }
-                if (entity == "Select" && term != null){
-                    URL_STRING = String.format(getResources().getString(R.string.url1),term);
+                if (entity.equals("Select") && term != null) {
+                    URL_STRING = String.format(getResources().getString(R.string.url1), term);
                     SearchDownloader searchDownloader = new SearchDownloader(MainActivity.this);
                     searchDownloader.execute();
                     mListView.setVisibility(View.VISIBLE);
-                }
-                else if (entity != "Select" && term !=null){
+                } else if (!entity.equals("Select") && term != null) {
                     URL_STRING = String.format(getResources().getString(R.string.url2), term, entity);
                     SearchDownloader searchDownloader = new SearchDownloader(MainActivity.this);
                     searchDownloader.execute();

@@ -3,6 +3,7 @@ package com.pandamnapp.ifound;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,9 +15,9 @@ import android.widget.Toast;
 
 public class HomeScreen extends AppCompatActivity {
 
+    static String URL_STRING;
     //Initializing layout views
     ListView mListView;
-    String URL_STRING;
     String entity;
     String term = null;
     private Spinner mSpinner;
@@ -52,6 +53,7 @@ public class HomeScreen extends AppCompatActivity {
                 }
                 else if (entity != "Select" && term !=null){
                     URL_STRING = String.format(getResources().getString(R.string.url2), term, entity);
+                    Log.v("Home", URL_STRING);
                     SearchDownloader searchDownloader = new SearchDownloader(HomeScreen.this);
                     searchDownloader.execute();
                     mListView.setVisibility(View.VISIBLE);

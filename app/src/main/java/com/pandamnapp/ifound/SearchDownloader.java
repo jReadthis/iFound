@@ -3,6 +3,7 @@ package com.pandamnapp.ifound;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,7 +14,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -22,20 +22,20 @@ import java.util.ArrayList;
  */
 public class SearchDownloader extends AsyncTask<Void, Void, Void> {
 
-    ArrayList<ITuneSearchObject> searchObjectsArrayList =  new ArrayList<>();
+    ArrayList<ITuneSearchObject> searchObjectsArrayList = new ArrayList<>();
     private HomeScreen homeScreen;
-    private MainActivity mainActivity;
 
 
-    public SearchDownloader(HomeScreen homeScreen){
+    public SearchDownloader(HomeScreen homeScreen) {
         this.homeScreen = homeScreen;
     }
 
-    public SearchDownloader(MainActivity mainActivity){
-        this.mainActivity = mainActivity;
+    public SearchDownloader(MainActivity mainActivity) {
+
     }
+
     @Override
-    protected void onPostExecute(Void avoid){
+    protected void onPostExecute(Void avoid) {
         super.onPostExecute(avoid);
         SearchAdapter adapter = new SearchAdapter(homeScreen, searchObjectsArrayList);
         homeScreen.mListView.setAdapter(adapter);
@@ -43,19 +43,20 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-        URL apiUrl = null;
-        HttpURLConnection mainconn = null;
-        InputStream maininputStream = null;
+        URL apiUrl;
+        HttpURLConnection mainconn;
+        InputStream maininputStream;
+        String wrapperType = null;
         String trackName = null;
         String artworkUrl = null;
         String shortDes = null;
         String longDes = null;
-        String kind = null;
-        String trackPrice = null;
+        String kind;
+        String trackPrice;
         Bitmap bmp = null;
 
-        try{
-            apiUrl = new URL(homeScreen.URL_STRING);
+        try {
+            apiUrl = new URL(HomeScreen.URL_STRING);
 
             mainconn = (HttpURLConnection) apiUrl.openConnection();
             maininputStream = mainconn.getInputStream();
@@ -71,42 +72,95 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
             JSONObject jsonObject = new JSONObject(json);
             JSONArray dataArray = jsonObject.getJSONArray("results");
 
-            for(int i = 0; i < dataArray.length(); i++){
+            for (int i = 0; i < dataArray.length(); i++) {
                 JSONObject singleObject = dataArray.getJSONObject(i);
 
-                //JSONObject trackObject = singleObject.getJSONObject("trackName");
-                //if (singleObject.has("trackName")) {
-                    trackName = singleObject.getString("trackName");
-                //}
-                //if(singleObject.has("artworkUrl")) {
+                try {
+                    wrapperType = singleObject.getString("wrapperType");
+                } catch (JSONException e) {
+                    Log.v("Wrapper", "Something went wrong.");
+                }
+
+                try {
+                    kind = singleObject.getString("kind");
+                } catch (JSONException e) {
+                    kind = "No value for kind";
+                }
+
+                if (wrapperType != null) {
+                    try {
+                        switch (wrapperType) {
+                            case "artist":
+                                trackName = singleObject.getString("artistName");
+                                break;
+                            case "track":
+                                trackName = singleObject.getString("trackName");
+                                break;
+                            case "collection":
+                                trackName = singleObject.getString("collectionName");
+                                break;
+                        }
+
+                    } catch (JSONException e) {
+                        trackName = "No value for track-name";
+                    }
+                }
+                else if(kind != null){
+                    try {
+                        switch (kind) {
+                            case "ebook":
+                                trackName = singleObject.getString("artistName");
+                                break;
+                            case "tv-episode":
+                                trackName = singleObject.getString("trackName") +
+                                " - " + singleObject.getString("collectionName");
+                                break;
+                            case "collection":
+                                trackName = singleObject.getString("collectionName");
+                                break;
+                        }
+
+                    } catch (JSONException e) {
+                        trackName = "No value for track-name";
+                    }
+                }
+
+                try {
                     artworkUrl = singleObject.getString("artworkUrl30");
+                } catch (JSONException e) {
+                    artworkUrl = null;
+                    Log.v("Call from background", "No artwork");
+                }
+                if (artworkUrl != null) {
                     URL downloadURL = new URL(artworkUrl);
                     HttpURLConnection conn = (HttpURLConnection) downloadURL.openConnection();
                     InputStream inputStream = conn.getInputStream();
                     bmp = BitmapFactory.decodeStream(inputStream);
-                //}
-
+                }
                 //shortDes = singleObject.getString("shortDescription");
-                //if (singleObject.has("kind")) {
-                    kind = singleObject.getString("kind");
-                //}
+
                 //longDes = singleObject.getString("longDescription");
-                //if (singleObject.has("trackPrice")) {
+                try {
                     trackPrice = singleObject.getString("trackPrice");
+                } catch (JSONException e) {
+                    trackPrice = "0.0";
+                }
                 //}
                 //ITuneSearchObject iTuneSearchObject = new ITuneSearchObject(trackName,bmp,
-                        //shortDes, longDes, kind, trackPrice);
-                ITuneSearchObject iTuneSearchObject = new ITuneSearchObject(trackName,bmp, kind, trackPrice);
+                //shortDes, longDes, kind, trackPrice);
+                ITuneSearchObject iTuneSearchObject;
+                if(wrapperType != null && kind == null) {
+                    iTuneSearchObject = new ITuneSearchObject(trackName, bmp, wrapperType, trackPrice);
+                }
+                else{
+                    iTuneSearchObject = new ITuneSearchObject(trackName, bmp, kind, trackPrice);
+                }
                 searchObjectsArrayList.add(iTuneSearchObject);
 
             }
 
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
+        } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
 
