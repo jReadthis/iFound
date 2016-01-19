@@ -41,17 +41,17 @@ public class HomeScreen extends AppCompatActivity {
             public void onClick(View v) {
                 term = mSearchParam.getText().toString();
 
-                if(term == "") {
+                if(term.isEmpty()) {
                     Toast.makeText(getBaseContext(), "Please enter a search term",
                             Toast.LENGTH_LONG).show();
                 }
-                if (entity == "Select" && term != null){
+                if (!entity.isEmpty() && !term.isEmpty()){
                     URL_STRING = String.format(getResources().getString(R.string.url1),term);
                     SearchDownloader searchDownloader = new SearchDownloader(HomeScreen.this);
                     searchDownloader.execute();
                     mListView.setVisibility(View.VISIBLE);
                 }
-                else if (entity != "Select" && term !=null){
+                else if (entity.isEmpty() && term.isEmpty()){
                     URL_STRING = String.format(getResources().getString(R.string.url2), term, entity);
                     Log.v("Home", URL_STRING);
                     SearchDownloader searchDownloader = new SearchDownloader(HomeScreen.this);

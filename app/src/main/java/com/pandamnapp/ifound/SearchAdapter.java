@@ -36,7 +36,6 @@ public class SearchAdapter extends ArrayAdapter<ITuneSearchObject> {
         TextView kind = (TextView) row.findViewById(R.id.kind);
         TextView shortDesc = (TextView) row.findViewById(R.id.shortDes);
         TextView trackPrice = (TextView) row.findViewById(R.id.trackPrice);
-        //TextView longDesc = (TextView) row.findViewById(R.id.longDesc);
 
         ITuneSearchObject object = obj.get(position);
         trackName.setText(object.trackName);
@@ -44,7 +43,6 @@ public class SearchAdapter extends ArrayAdapter<ITuneSearchObject> {
         kind.setText(object.kind);
         shortDesc.setText(object.shortDescription);
         trackPrice.setText(object.trackPrice);
-        //longDesc.setText(object.longDescription);
 
         return row;
 

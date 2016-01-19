@@ -3,7 +3,6 @@ package com.pandamnapp.ifound;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -22,20 +22,27 @@ import java.util.ArrayList;
  */
 public class SearchDownloader extends AsyncTask<Void, Void, Void> {
 
-    ArrayList<ITuneSearchObject> searchObjectsArrayList = new ArrayList<>();
+    ArrayList<ITuneSearchObject> searchObjectsArrayList =  new ArrayList<>();
     private HomeScreen homeScreen;
+    private String RESULTS = "results";
+    private String TRACK_NAME = "trackName";
+    private String ART_WORK = "artworkUrl30";
+    private String SHORT_DESC = "shortDescription";
+    private String LONG_DESC = "longDescription";
+    private String KIND = "kind";
+    private String TRACK_PRICE = "trackPrice";
 
 
-    public SearchDownloader(HomeScreen homeScreen) {
+    public SearchDownloader(HomeScreen homeScreen){
         this.homeScreen = homeScreen;
     }
 
-    public SearchDownloader(MainActivity mainActivity) {
-
+    public SearchDownloader(MainActivity mainActivity){
+        this.mainActivity = mainActivity;
     }
 
     @Override
-    protected void onPostExecute(Void avoid) {
+    protected void onPostExecute(Void avoid){
         super.onPostExecute(avoid);
         SearchAdapter adapter = new SearchAdapter(homeScreen, searchObjectsArrayList);
         homeScreen.mListView.setAdapter(adapter);
@@ -51,12 +58,12 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
         String artworkUrl = null;
         String shortDes = null;
         String longDes = null;
-        String kind;
-        String trackPrice;
+        String kind = null;
+        String trackPrice = null;
         Bitmap bmp = null;
 
-        try {
-            apiUrl = new URL(HomeScreen.URL_STRING);
+        try{
+            apiUrl = new URL(homeScreen.URL_STRING);
 
             mainconn = (HttpURLConnection) apiUrl.openConnection();
             maininputStream = mainconn.getInputStream();
@@ -72,7 +79,7 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
             JSONObject jsonObject = new JSONObject(json);
             JSONArray dataArray = jsonObject.getJSONArray("results");
 
-            for (int i = 0; i < dataArray.length(); i++) {
+            for(int i = 0; i < dataArray.length(); i++){
                 JSONObject singleObject = dataArray.getJSONObject(i);
 
                 try {
@@ -137,17 +144,19 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
                     InputStream inputStream = conn.getInputStream();
                     bmp = BitmapFactory.decodeStream(inputStream);
                 }
-                //shortDes = singleObject.getString("shortDescription");
 
-                //longDes = singleObject.getString("longDescription");
+                if (singleObject.has(SHORT_DESC)) {
+                    shortDes = singleObject.getString(SHORT_DESC);
+                }
+                if (singleObject.has(LONG_DESC)) {
+                    longDes = singleObject.getString(LONG_DESC);
+                }
                 try {
                     trackPrice = singleObject.getString("trackPrice");
                 } catch (JSONException e) {
                     trackPrice = "0.0";
                 }
-                //}
-                //ITuneSearchObject iTuneSearchObject = new ITuneSearchObject(trackName,bmp,
-                //shortDes, longDes, kind, trackPrice);
+                
                 ITuneSearchObject iTuneSearchObject;
                 if(wrapperType != null && kind == null) {
                     iTuneSearchObject = new ITuneSearchObject(trackName, bmp, wrapperType, trackPrice);
@@ -160,7 +169,11 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
             }
 
 
-        } catch (IOException | JSONException e) {
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
