@@ -11,8 +11,6 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.Collections;
-
 public class HomeScreen extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     ListView listView;
     Spinner spinner;
@@ -41,7 +39,17 @@ public class HomeScreen extends AppCompatActivity implements AdapterView.OnItemS
                         android.R.layout.simple_spinner_item);
         spinner.setAdapter(entityAdapter);
 
-        spinner.setOnItemSelectedListener(this);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                entity = String.valueOf(spinner.getSelectedItem());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     public void addURL(View view) {
