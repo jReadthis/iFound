@@ -36,7 +36,6 @@ public class MyAdapter extends ArrayAdapter<ITuneSearchObject> {
                 ImageView artworkUrl30 = (ImageView) row.findViewById(R.id.artWork);
                 TextView kind = (TextView) row.findViewById(R.id.kind);
                 TextView shortDesc = (TextView) row.findViewById(R.id.shortDes);
-                //TextView longDesc = (TextView) row.findViewById(R.id.longDesc);
                 TextView trackPrice = (TextView) row.findViewById(R.id.trackPrice);
 
 
@@ -46,7 +45,6 @@ public class MyAdapter extends ArrayAdapter<ITuneSearchObject> {
                 trackName.setText(object.trackName);
                 kind.setText(object.kind);
                 shortDesc.setText(object.shortDescription);
-                //longDesc.setText(object.longDescription);
                 trackPrice.setText(object.trackPrice);
                 return row;
     }

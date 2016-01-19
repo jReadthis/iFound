@@ -87,19 +87,11 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
                 }
                 if (singleObject.has(ART_WORK)) {
                     artworkUrl = singleObject.getString(ART_WORK);
-
-                    //JSONObject trackObject = singleObject.getJSONObject("trackName");
-                    //if (singleObject.has("trackName")) {
-                    trackName = singleObject.getString("trackName");
-                    //}
-                    //if(singleObject.has("artworkUrl")) {
-                    artworkUrl = singleObject.getString("artworkUrl30");
                     URL downloadURL = new URL(artworkUrl);
                     HttpURLConnection conn = (HttpURLConnection) downloadURL.openConnection();
                     InputStream inputStream = conn.getInputStream();
                     bmp = BitmapFactory.decodeStream(inputStream);
                 }
-
                 if (singleObject.has(SHORT_DESC)) {
                     shortDes = singleObject.getString(SHORT_DESC);
                 }
@@ -110,7 +102,6 @@ public class SearchDownloader extends AsyncTask<Void, Void, Void> {
                     trackPrice = singleObject.getString(TRACK_PRICE);
                 }
                 ITuneSearchObject iTuneSearchObject = new ITuneSearchObject(trackName, bmp, kind, shortDes, longDes, trackPrice);
-                shortDes = singleObject.getString("shortDescription");
                 searchObjectsArrayList.add(iTuneSearchObject);
             }
 
