@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical"
     android:weightSum="1">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="25dp">
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="236dp"
-            android:layout_height="191dp"
             android:id="@+id/artWork"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:src="@mipmap/ic_launcher" />
         <LinearLayout
             android:layout_width="wrap_content"
@@ -21,34 +21,34 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/trackName"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_gravity="center"
                 android:text="@string/trackName"
-                android:id="@+id/trackName"
-                android:layout_gravity="center" />
+                android:textAppearance="?android:attr/textAppearanceLarge" />
             <TextView
+                android:id="@+id/kind"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/kind"
-                android:id="@+id/kind" />
+                android:textAppearance="?android:attr/textAppearanceMedium" />
             <TextView
+                android:id="@+id/shortDes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/shortDescription"
-                android:id="@+id/shortDes"
                 android:layout_marginTop="10dp"
-                android:layout_weight="0.34" />
+                android:layout_weight="0.34"
+                android:text="@string/shortDescription" />
 
             <TextView
+                android:id="@+id/trackPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="trackPrice"
-                android:id="@+id/trackPrice"
+                android:layout_gravity="end"
                 android:layout_marginTop="10dp"
-                android:layout_gravity="end"/>
+                android:text="trackPrice"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
 
 
         </LinearLayout>
@@ -56,12 +56,12 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/longDesc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0.54"
         android:text="@string/longDescription"
-        android:id="@+id/longDesc"
-        android:visibility="gone"
-        android:layout_weight="0.54" />
+        android:visibility="gone" />
 
 
 </LinearLayout>
